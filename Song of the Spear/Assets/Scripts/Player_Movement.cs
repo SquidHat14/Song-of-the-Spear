@@ -11,7 +11,7 @@ public class Player_Movement : MonoBehaviour
     public Transform GroundCheck;
     public LayerMask groundLayer;
     private bool AttackThisFrame;
-
+    private CircleCollider2D CircleCollider;
     public AudioSource audio;
 
     Rigidbody2D rigidbody;
@@ -21,6 +21,7 @@ public class Player_Movement : MonoBehaviour
     {
         rigidbody = GetComponent<Rigidbody2D>();
         SpriteScale = transform.localScale.x;
+        CircleCollider = GetComponent<CircleCollider2D>();
         audio.Play();
         audio.Pause();
     }
@@ -42,12 +43,13 @@ public class Player_Movement : MonoBehaviour
         float moveY = Input.GetAxisRaw("Vertical");
         animate.SetFloat("Speed", Mathf.Abs(speed * moveX));
 
-        isGrounded = Physics2D.OverlapCircle(new Vector2(transform.position.x + 0.5f, transform.position.y - .5f), .02f, groundLayer);
-
-
+        isGrounded = Physics2D.OverlapCircle(new Vector2(transform.position.x + 0.5f, transform.position.y - .5f), .001f, groundLayer);
+        
+        //Movement//
         rigidbody.velocity = new Vector2(speed * moveX, rigidbody.velocity.y);
 
-        if (moveX != 0)
+
+       if (moveX != 0)  //Handles animations and flipping sprites
         {
             if (isGrounded) audio.UnPause();
             else audio.Pause();
@@ -65,9 +67,13 @@ public class Player_Movement : MonoBehaviour
         }
         if(AttackThisFrame)
         {
-            animate.ResetTrigger("Attack Button Pressed");
             animate.SetTrigger("Attack Button Pressed");
             AttackThisFrame = false;
         }
+    }
+
+    private void ResetAttackTrigger()
+    {
+        animate.ResetTrigger("Attack Button Pressed");
     }
 }

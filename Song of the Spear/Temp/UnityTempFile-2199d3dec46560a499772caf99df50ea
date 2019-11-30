@@ -292,6 +292,8 @@
 Assets\Scripts\Attack_End.cs
 Assets\Scripts\AudioManager.cs
 Assets\Scripts\Parallax.cs
+Assets\Scripts\PhysicsObject.cs
 Assets\Scripts\Platform_Follow.cs
 Assets\Scripts\Player_Movement.cs
 Assets\Scripts\SmoothCamera2D.cs
+Assets\TextBox.cs
