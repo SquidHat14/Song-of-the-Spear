@@ -32,11 +32,12 @@ public class PlayerPlatformerController : PhysicsObject
 
         move.x = Input.GetAxis("Horizontal");
 
-        if (Input.GetButtonDown("Jump") && grounded)
+        if (Input.GetButtonDown("Jump") && grounded)  //Jumping physics
         {
             velocity.y = jumpTakeOffSpeed;
+            Debug.Log(velocity.y);
         }
-        else if (Input.GetButtonUp("Jump"))
+        else if (Input.GetButtonUp("Jump"))  //Controlling how the character acts when in mid jump but letting go of Jump key
         {
             if (velocity.y > 0)
             {
@@ -46,11 +47,10 @@ public class PlayerPlatformerController : PhysicsObject
 
         if (move.x != 0)  //Handles animations and flipping sprites
         {
-
             transform.localScale = new Vector2(Mathf.Sign(move.x) * SpriteScale, transform.localScale.y);
         }
 
-        animator.SetBool("grounded", grounded);
+        //animator.SetBool("grounded", grounded);
         animator.SetFloat("" +
             "Speed", Mathf.Abs(velocity.x) / maxSpeed);
 
