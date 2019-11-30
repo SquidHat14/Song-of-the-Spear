@@ -1,0 +1,49 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class EnemyMovement : MonoBehaviour
+{
+    public LayerMask groundLayer;
+    public float speed = 1;
+    Rigidbody2D rigidBody;
+    Transform groundCheck;
+    float enemyWidth, enemyHeight;
+
+    void Start()
+    {
+        groundCheck = this.transform;
+        rigidBody = this.GetComponent<Rigidbody2D>();
+        SpriteRenderer enemySprite = this.GetComponent<SpriteRenderer>();
+        enemyWidth = enemySprite.bounds.extents.x;
+        enemyHeight = enemySprite.bounds.extents.y;
+    }
+
+    void FixedUpdate()
+    {
+        //NOTE: This script makes use of the .toVector2() extension method.
+        //Be sure you have the following script in your project to avoid errors
+
+        //Use this position to cast the isGrounded/isBlocked lines from
+        Vector2 lineCastPos = groundCheck.position.toVector2() - groundCheck.right.toVector2() * enemyWidth + Vector2.up * enemyHeight;
+        //Check to see if there's ground in front of us before moving forward
+        Debug.DrawLine(lineCastPos, lineCastPos + Vector2.down);
+        bool isGrounded = Physics2D.Linecast(lineCastPos, lineCastPos + Vector2.down, groundLayer);
+        //Check to see if there's a wall in front of us before moving forward
+        Debug.DrawLine(lineCastPos, lineCastPos - groundCheck.right.toVector2() * .5f);
+        bool isBlocked = Physics2D.Linecast(lineCastPos, lineCastPos - groundCheck.right.toVector2() * .5f, groundLayer);
+
+        //If theres no ground, turn around. Or if I hit a wall, turn around
+        if (!isGrounded || isBlocked)
+        {
+            Vector3 currentRotation = groundCheck.eulerAngles;
+            currentRotation.y += 180;
+            groundCheck.eulerAngles = currentRotation;
+        }
+
+        //Always move forward
+        Vector2 enemyVelocity = rigidBody.velocity;
+        enemyVelocity.x = -groundCheck.right.x * speed;
+        rigidBody.velocity = enemyVelocity;
+    }
+}
