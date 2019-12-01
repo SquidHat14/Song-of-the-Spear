@@ -14,8 +14,6 @@ public class Player_Movement : MonoBehaviour
     private CircleCollider2D CircleCollider;
     public AudioSource audio;
 
-    public AudioSource audio;
-
     Rigidbody2D rigidbody;
 
     // Start is called before the first frame update
@@ -23,10 +21,7 @@ public class Player_Movement : MonoBehaviour
     {
         rigidbody = GetComponent<Rigidbody2D>();
         SpriteScale = transform.localScale.x;
-<<<<<<< Updated upstream:Song of the Spear/Assets/Scripts/Player_Movement.cs
         CircleCollider = GetComponent<CircleCollider2D>();
-=======
->>>>>>> Stashed changes:Song of the Spear/Assets/Scripts/Player_Movement.cs
         audio.Play();
         audio.Pause();
     }
@@ -48,7 +43,6 @@ public class Player_Movement : MonoBehaviour
         float moveY = Input.GetAxisRaw("Vertical");
         animate.SetFloat("Speed", Mathf.Abs(speed * moveX));
 
-<<<<<<< Updated upstream:Song of the Spear/Assets/Scripts/Player_Movement.cs
         isGrounded = Physics2D.OverlapCircle(new Vector2(transform.position.x + 0.5f, transform.position.y - .5f), .001f, groundLayer);
         
         //Movement//
@@ -56,14 +50,6 @@ public class Player_Movement : MonoBehaviour
 
 
        if (moveX != 0)  //Handles animations and flipping sprites
-=======
-        isGrounded = Physics2D.OverlapCircle(new Vector2(transform.position.x + 0.5f, transform.position.y - .5f), .02f, groundLayer);
-
-
-        rigidbody.velocity = new Vector2(speed * moveX, rigidbody.velocity.y);
-
-        if (moveX != 0)
->>>>>>> Stashed changes:Song of the Spear/Assets/Scripts/Player_Movement.cs
         {
             if (isGrounded) audio.UnPause();
             else audio.Pause();

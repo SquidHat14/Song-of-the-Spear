@@ -143,7 +143,6 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-<<<<<<< Updated upstream:Song of the Spear/Assets/Animations/Player.controller
   - m_Name: Attack1
     m_Type: 9
     m_DefaultFloat: 0
@@ -151,9 +150,6 @@ AnimatorController:
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
   - m_Name: React
-=======
-  - m_Name: Attack Button Pressed
->>>>>>> Stashed changes:Song of the Spear/Assets/Animations/Player.controller
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
