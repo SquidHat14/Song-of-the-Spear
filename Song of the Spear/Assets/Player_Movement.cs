@@ -11,8 +11,6 @@ public class Player_Movement : MonoBehaviour
     public Transform GroundCheck;
     public LayerMask groundLayer;
     private bool AttackThisFrame;
-    private CircleCollider2D CircleCollider;
-    public AudioSource audio;
 
     Rigidbody2D rigidbody;
 
@@ -21,14 +19,12 @@ public class Player_Movement : MonoBehaviour
     {
         rigidbody = GetComponent<Rigidbody2D>();
         SpriteScale = transform.localScale.x;
-        CircleCollider = GetComponent<CircleCollider2D>();
-        audio.Play();
-        audio.Pause();
     }
 
     // Update is called once per frame
     void Update()
     {
+        isGrounded = Physics2D.OverlapCircle(new Vector2(transform.position.x - 0.5f, transform.position.y - .5f), .05f, groundLayer);
 
         if (Input.GetKeyDown("e"))
         {
@@ -43,37 +39,24 @@ public class Player_Movement : MonoBehaviour
         float moveY = Input.GetAxisRaw("Vertical");
         animate.SetFloat("Speed", Mathf.Abs(speed * moveX));
 
-        isGrounded = Physics2D.OverlapCircle(new Vector2(transform.position.x + 0.5f, transform.position.y - .5f), .001f, groundLayer);
-        
-        //Movement//
         rigidbody.velocity = new Vector2(speed * moveX, rigidbody.velocity.y);
-
-
-       if (moveX != 0)  //Handles animations and flipping sprites
+        if (moveX == 1)
         {
-            if (isGrounded) audio.UnPause();
-            else audio.Pause();
-
-            transform.localScale = new Vector2(Mathf.Sign(moveX) * SpriteScale, transform.localScale.y);
+            transform.localScale = new Vector2(SpriteScale, transform.localScale.y);
         }
-        else
+        if (moveX == -1)
         {
-            audio.Pause();
+            transform.localScale = new Vector2(-SpriteScale, transform.localScale.y);
         }
-
         if (moveY == 1 && isGrounded)
         {
             rigidbody.AddForce(new Vector2(0, 2), ForceMode2D.Impulse);
         }
         if(AttackThisFrame)
         {
+            animate.ResetTrigger("Attack Button Pressed");
             animate.SetTrigger("Attack Button Pressed");
             AttackThisFrame = false;
         }
-    }
-
-    private void ResetAttackTrigger()
-    {
-        animate.ResetTrigger("Attack Button Pressed");
     }
 }
