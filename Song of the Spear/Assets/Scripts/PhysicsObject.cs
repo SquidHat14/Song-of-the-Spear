@@ -47,6 +47,9 @@ public class PhysicsObject : MonoBehaviour
         velocity += gravityModifier * Physics2D.gravity * Time.deltaTime;
         velocity.x = targetVelocity.x; //TargetVelocity is set in the child class within the Update function
 
+        Debug.Log("x: " + velocity.x);
+        Debug.Log("y: " + velocity.y);
+
         grounded = false;
 
         Vector2 deltaPosition = velocity * Time.deltaTime;
@@ -73,6 +76,7 @@ public class PhysicsObject : MonoBehaviour
             for (int i = 0; i < count; i++)
             {
                 hitBufferList.Add(hitBuffer[i]);
+                Debug.Log(hitBuffer[i]);
             }
 
             for (int i = 0; i < hitBufferList.Count; i++)
