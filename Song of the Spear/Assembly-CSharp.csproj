@@ -62,6 +62,7 @@
      <Compile Include="Assets\Scripts\PhysicsObject.cs" />
      <Compile Include="Assets\Scripts\Platform_Follow.cs" />
      <Compile Include="Assets\Scripts\PlayerPlatformerController.cs" />
+     <Compile Include="Assets\Scripts\SceneTransitionx.cs" />
      <Compile Include="Assets\Scripts\SmoothCamera2D.cs" />
      <Compile Include="Assets\Scripts\Test_Physics\Controller2D.cs" />
      <Compile Include="Assets\Scripts\Test_Physics\Player.cs" />
