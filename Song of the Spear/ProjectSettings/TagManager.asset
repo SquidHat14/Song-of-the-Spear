@@ -14,11 +14,11 @@ TagManager:
   - 
   - 
   - Background
-  - GameObjects
+  - Obstacles
+  - Enemies
+  - Desctructables
+  - Interactables
   - Player
-  - 
-  - 
-  - 
   - 
   - 
   - 

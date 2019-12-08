@@ -298,4 +298,6 @@ Assets\Scripts\PhysicsObject.cs
 Assets\Scripts\Platform_Follow.cs
 Assets\Scripts\PlayerPlatformerController.cs
 Assets\Scripts\SmoothCamera2D.cs
+Assets\Scripts\Test_Physics\Controller2D.cs
+Assets\Scripts\Test_Physics\PlatformController.cs
 Assets\Scripts\Test_Physics\Player.cs

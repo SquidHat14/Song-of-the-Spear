@@ -66,12 +66,12 @@
     <Compile Include="Assets\Scripts\Attack_End.cs" />
     <Compile Include="Assets\Scripts\AudioManager.cs" />
     <Compile Include="Assets\Scripts\Parallax.cs" />
-    <Compile Include="Assets\Scripts\PhysicsObject.cs" />
     <Compile Include="Assets\Scripts\Platform_Follow.cs" />
-    <Compile Include="Assets\Scripts\PlayerPlatformerController.cs" />
     <Compile Include="Assets\Scripts\SmoothCamera2D.cs" />
     <Compile Include="Assets\Scripts\Test_Physics\Controller2D.cs" />
+    <Compile Include="Assets\Scripts\Test_Physics\PlatformController.cs" />
     <Compile Include="Assets\Scripts\Test_Physics\Player.cs" />
+    <Compile Include="Assets\Scripts\Test_Physics\RaycastController.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>E:/Game Stuff/Unity/Song-of-the-Spear/Song of the Spear/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
