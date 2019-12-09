@@ -116,11 +116,10 @@ public class Slime_AI : MonoBehaviour
       // approach player?
       if (DistanceToTarget > approachDistance && playerInRange)
       {
-         velocity.y = 0;
          currentVelocityX = moveSpeed;
       }
       // attack or approach
-      else if (DistanceToTarget < attackRange && attackTimer >= timeBetweenAttacks)
+      if (DistanceToTarget < attackRange && attackTimer >= timeBetweenAttacks && playerInRange)
       {
          velocity.y = jumpVelocity;
          attackTimer = 0;
