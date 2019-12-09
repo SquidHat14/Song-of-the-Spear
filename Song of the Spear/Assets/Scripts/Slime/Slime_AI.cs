@@ -4,131 +4,136 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
+[RequireComponent(typeof(Controller2D))]
 public class Slime_AI : MonoBehaviour
 {
-   // interacting game objects //
-   public Transform PlayerPosition;
+   // ### Interacting Game Objects ### //
+   public Transform playerPosition;
    public Rigidbody2D rb;
-   public CircleCollider2D HitBox;
-   private float SpriteScale;
+   public BoxCollider2D hitBox;//unused
+   private float spriteScale;
    //public GameObject player;
    //PlayerHealth playerHealth;
-   float timer;
-   public float TimeBetweenAttacks;
-   public float MinTimeBetweenDmg;
-   public float AggroRange;
-   public float AttackRange;
-   public float ApproachDistance;
-   public float JumpSpeed_X;
-   public float JumpSpeed_Y;
-   public float JumpTime;
-   //public GameObject AlertedAnime;
-   //public Animator animate;
+   //Animator AnimationController;
+   //Audio Controller;
 
-   // object physical properties //
-   public float speed;
+
+   // ##### Movement Parameters #####
+   public float moveSpeed;
+
+   private float currentVelocityX;
+   private float currentVelocityY;
+
+
+   // ##### Combat Parameters #####
+   public float timeBetweenAttacks;
+   public float minTimeBetweenDmg;//unused
+   public float aggroRange;
+   public float attackRange;
+   public float approachDistance;
+
    private bool playerInRange;
-   // 1 => right; 0 => same x position; -1 => left
-   private short PlayertoRight;
+   private float attackTimer;
+   // 1=R; 0=ON; -1=L PFB
+   private short playertoRight;
+
+
+   // ##### Jumping Parameters #####
+   public float accelerationTimeAirborne;
+   public float accelerationTimeGrounded;
+   public float jumpVelocity;
+   public float jumpTime;//unused
+   public float attackSpeed;
+
+   float velocityXSmoothing;
+   Vector3 velocity;
+
+
+   // ##### Physics Parameters #####
+   public float gravity;
+   Controller2D controller;
 
 
    void Start()
    {
+      // set up my rigid body, attackTimer, spritescale
       rb = GetComponent<Rigidbody2D>();
-      timer = 3;
-      Debug.Log("$$$$$$$$$$$$$$$$$$$ BOUNCINESS BOUNCINESS $$$$$$$$$$$$$");
-      Debug.Log(HitBox.bounciness);
-      //Debug.Log(HitBox.IsTouchingLayers);
-      SpriteScale = transform.localScale.x;
+      attackTimer = timeBetweenAttacks;
+      spriteScale = transform.localScale.x;
+
+      // set up physics controller
+      controller = GetComponent<Controller2D>();
    }
+
 
    // Update is called once per frame
    void Update()
    {
-      timer += Time.deltaTime;
-
-      if (PlayerPosition == null)
-      {
-         Debug.Log("Player not found");
-      }
+      attackTimer += Time.deltaTime;
    }
 
+   // Fixed updated is called on every rendered frame???
    private void FixedUpdate()
    {
-      double xDist = (rb.position.x - PlayerPosition.position.x);
-      double yDist = (rb.position.y - PlayerPosition.position.y);
-      double SqrDistance = xDist * xDist + yDist * yDist;
-
+      currentVelocityX = 0;
       // calculate distance to target player
-      PlayertoRight = 0;
-      if (xDist > 0)
+      double xDist = (rb.position.x - playerPosition.position.x);
+      double yDist = (rb.position.y - playerPosition.position.y);
+      double SqrDistance = xDist * xDist + yDist * yDist;
+      double DistanceToTarget = Math.Pow(SqrDistance, 0.5f);
+
+      playertoRight = 0;
+      if (xDist > 0.1)
       {
-         PlayertoRight = -1;
+         playertoRight = -1;
       }
-      else if (xDist < 0)
+      else if (xDist < 0.1)
       {
-         PlayertoRight = 1;
+         playertoRight = 1;
       }
       else
       {
-         PlayertoRight = 0;
+         playertoRight = 0;
       }
-      Debug.Log(SqrDistance);
-      double DistanceToTarget = Math.Pow(SqrDistance, 0.5f);
 
       // align sprite left / right
-      if (PlayertoRight == 1)
+      if (playertoRight == 1)
       {
-         transform.localScale = new Vector2(-SpriteScale, transform.localScale.y);
+         transform.localScale = new Vector2(-spriteScale, transform.localScale.y);
       }
-      if (PlayertoRight == -1)
+      if (playertoRight == -1)
       {
-         transform.localScale = new Vector2(SpriteScale, transform.localScale.y);
+         transform.localScale = new Vector2(spriteScale, transform.localScale.y);
       }
 
       // range check
-      if (DistanceToTarget < AggroRange)
+      if (DistanceToTarget < aggroRange)
       {
          playerInRange = true;
-         Debug.Log("###################### Player Character found");
-         Debug.Log(playerInRange);
       }
 
-      // approaching check
-      bool ApproachingPlayer = DistanceToTarget > ApproachDistance;
-
-      Debug.Log("#########################################################");
-      Debug.Log(timer);
-      Debug.Log("IS  PLAYER IN RANGE??");
-      Debug.Log(playerInRange);
-      Debug.Log("NEED TO APPROACH TARGET");
-      Debug.Log(ApproachingPlayer);
-      ApproachingPlayer = false;
-
-      // approach player
-      if (DistanceToTarget > ApproachDistance && playerInRange)
+      // ####################### WIP - pre interaction AI needed ############### //
+      // approach player?
+      if (DistanceToTarget > approachDistance && playerInRange)
       {
-         transform.Translate(new Vector2(PlayertoRight, 0) * Time.deltaTime);
+         velocity.y = 0;
+         currentVelocityX = moveSpeed;
       }
-      // attack
-      else if (DistanceToTarget < AttackRange && timer >= TimeBetweenAttacks)
+      // attack or approach
+      else if (DistanceToTarget < attackRange && attackTimer >= timeBetweenAttacks)
       {
-         Debug.Log("###########################################################AAAAAAAATTTTTTTTTAAAAAACCCCKKKKK");
-         Debug.Log("------------------------ TRAJECTORY ------------------------");
-         Debug.Log(new Vector2(JumpSpeed_X * PlayertoRight, JumpSpeed_Y) * JumpTime);
-
-
-         transform.Translate(new Vector2(JumpSpeed_X * PlayertoRight, JumpSpeed_Y) * JumpTime);
-         timer = 0;
-         if (HitBox.IsTouchingLayers(10))
-         {
-            Debug.Log("BBBBBBOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOMMMMMMMMMMMMMMMM HHHIIITTT!!");
-         }
-         else
-         {
-            Debug.Log("MMMIIIIIIIISSSSSS @@@@@@@@@@@@@@@@@@@@@@@@@@$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-         }
+         velocity.y = jumpVelocity;
+         attackTimer = 0;
+         currentVelocityX = attackSpeed;
       }
+
+      float approach = 0;
+      if (playerInRange && DistanceToTarget > approachDistance) { approach = 1; }
+
+      float targetVelocityX = currentVelocityX * playertoRight * approach;
+      velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
+      velocity.y += gravity * Time.deltaTime;
+      controller.Move(velocity * Time.deltaTime);
    }
 
 }
