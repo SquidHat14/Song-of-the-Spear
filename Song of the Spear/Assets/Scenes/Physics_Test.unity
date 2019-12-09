@@ -2234,10 +2234,10 @@ MonoBehaviour:
   timeBetweenAttacks: 1
   minTimeBetweenDmg: 0
   aggroRange: 4
-  attackRange: 4
-  approachDistance: 0.25
-  accelerationTimeAirborne: 0.2
-  accelerationTimeGrounded: 0.1
+  attackRange: 1
+  approachDistance: 0.5
+  accelerationTimeAirborne: 0.3
+  accelerationTimeGrounded: 0.2
   jumpVelocity: 6
   jumpTime: 2
   attackSpeed: 4
