@@ -193,8 +193,6 @@ public class Controller2D : RaycastController
         }
     }
 
-
-
     public struct CollisionInfo
     {
         public bool above, below;
