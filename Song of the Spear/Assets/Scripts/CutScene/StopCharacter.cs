@@ -7,6 +7,7 @@ public class StopCharacter : MonoBehaviour
 
     CutScenePlayer player;
     CutSceneEnemy enemy;
+    internal bool CShake;
     private void Start()
     {
         player = FindObjectOfType<CutScenePlayer>();
@@ -19,6 +20,7 @@ public class StopCharacter : MonoBehaviour
         {
             player.StopMovement = true;
             enemy.StartMovement = true;
+            CShake = true;
             
         }
     }

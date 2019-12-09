@@ -50,7 +50,7 @@ public class TextBox : MonoBehaviour
         }
         if(IsActive)
         {
-            TextBoxEnable();
+            ReloadScript(BigText);
         }
         else
         {
@@ -93,6 +93,7 @@ public class TextBox : MonoBehaviour
     private IEnumerator ScrollText(string Dalines)
     {
         int Letter = 0;
+        Debug.Log("reached");
         ActualText.text = "";
         IsTyping = true;
         cancelTyping = false;
@@ -107,24 +108,18 @@ public class TextBox : MonoBehaviour
         cancelTyping = false;
     }
 
-    public void TextBoxEnable()
-    {
-        textBox.SetActive(true);
-        IsActive = true;
-
-        StartCoroutine(ScrollText(LinesofText[currentline]));
-
-    }
     public void TextBoxDisable()
     {
         textBox.SetActive(false);
         IsActive = false;
 
-        
     }
 
     public void ReloadScript(TextAsset text)
     {
+        textBox.SetActive(true);
+        IsActive = true;
+        
         if (text != null)
         {
             LinesofText = new string[1];

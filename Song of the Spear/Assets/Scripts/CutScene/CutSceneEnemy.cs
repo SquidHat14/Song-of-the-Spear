@@ -27,7 +27,7 @@ public class CutSceneEnemy : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+   void FixedUpdate()
     {
         stopCharacter.OnTriggerEnter2D(Collision2D);
         if (!StartMovement)
@@ -39,7 +39,5 @@ public class CutSceneEnemy : MonoBehaviour
         Rigidbody.velocity = new Vector2(Walkspeed, Rigidbody.velocity.y);
         animator.Play("SlimeBop");
         
-
-
     }
 }

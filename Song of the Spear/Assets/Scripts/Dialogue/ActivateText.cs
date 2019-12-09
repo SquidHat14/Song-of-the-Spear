@@ -33,7 +33,7 @@ public class ActivateText : MonoBehaviour
             TheTextBox.ReloadScript(InputText);
             TheTextBox.currentline = startline;
             TheTextBox.endline = endline;
-            TheTextBox.TextBoxEnable();
+            //TheTextBox.TextBoxEnable();
 
             if (DestroyWhenFinished)
             {
@@ -54,7 +54,7 @@ public class ActivateText : MonoBehaviour
             TheTextBox.ReloadScript(InputText);
             TheTextBox.currentline = startline;
             TheTextBox.endline = endline;
-            TheTextBox.TextBoxEnable();
+            //TheTextBox.TextBoxEnable();
 
             if(DestroyWhenFinished)
             {
