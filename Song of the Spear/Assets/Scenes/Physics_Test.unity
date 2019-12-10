@@ -1984,8 +1984,9 @@ MonoBehaviour:
   accelerationTimeAirborne: 0.2
   accelerationTimeGrounded: 0.1
   moveSpeed: 4
+  coyoteTimeFrameLimit: 3
   gravity: -25
-  jumpVelocity: 8
+  jumpVelocity: 8.26
   minJumpVelocity: 4.6
 --- !u!114 &787333700
 MonoBehaviour:
@@ -2173,7 +2174,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 945947393}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+<<<<<<< Updated upstream
   m_LocalPosition: {x: 9.25, y: 0, z: 0}
+=======
+  m_LocalPosition: {x: 3.33, y: 1.27, z: -2.8632812}
+>>>>>>> Stashed changes
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1680975759}
