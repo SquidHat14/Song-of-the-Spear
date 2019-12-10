@@ -58,6 +58,16 @@
      <Compile Include="Assets\Player_Movement.cs" />
      <Compile Include="Assets\Scripts\Attack_End.cs" />
      <Compile Include="Assets\Scripts\AudioManager.cs" />
+     <Compile Include="Assets\Scripts\CutScene\CameraShake.cs" />
+     <Compile Include="Assets\Scripts\CutScene\CutSceneEnemy.cs" />
+     <Compile Include="Assets\Scripts\CutScene\CutScenePlayer.cs" />
+     <Compile Include="Assets\Scripts\CutScene\GameScene.cs" />
+     <Compile Include="Assets\Scripts\CutScene\Loader.cs" />
+     <Compile Include="Assets\Scripts\CutScene\LoaderCallback.cs" />
+     <Compile Include="Assets\Scripts\CutScene\StopCharacter.cs" />
+     <Compile Include="Assets\Scripts\CutScene\StopEnemy.cs" />
+     <Compile Include="Assets\Scripts\Dialogue\ActivateText.cs" />
+     <Compile Include="Assets\Scripts\Dialogue\TextBox.cs" />
      <Compile Include="Assets\Scripts\Parallax.cs" />
      <Compile Include="Assets\Scripts\Platform_Follow.cs" />
      <Compile Include="Assets\Scripts\SceneTransitionx.cs" />
@@ -67,38 +77,40 @@
      <Compile Include="Assets\Scripts\Test_Physics\PlatformController.cs" />
      <Compile Include="Assets\Scripts\Test_Physics\Player.cs" />
      <Compile Include="Assets\Scripts\Test_Physics\RaycastController.cs" />
+     <None Include="Assets\Sprites\Dialogue\Text Files\EvilHeadSpeech.txt" />
+     <None Include="Assets\Sprites\Dialogue\Text Files\EvilHeadTest.txt" />
  <Reference Include="Unity.Timeline.Editor">
- <HintPath>C:/Users/degen/source/repos/Song-of-the-Spear/Song of the Spear/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+ <HintPath>C:/Unity/Repos/Song-of-the-Spear/Song of the Spear/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.VSCode.Editor">
- <HintPath>C:/Users/degen/source/repos/Song-of-the-Spear/Song of the Spear/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+ <HintPath>C:/Unity/Repos/Song-of-the-Spear/Song of the Spear/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro.Editor">
- <HintPath>C:/Users/degen/source/repos/Song-of-the-Spear/Song of the Spear/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+ <HintPath>C:/Unity/Repos/Song-of-the-Spear/Song of the Spear/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
- <HintPath>C:/Users/degen/source/repos/Song-of-the-Spear/Song of the Spear/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+ <HintPath>C:/Unity/Repos/Song-of-the-Spear/Song of the Spear/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Timeline">
- <HintPath>C:/Users/degen/source/repos/Song-of-the-Spear/Song of the Spear/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+ <HintPath>C:/Unity/Repos/Song-of-the-Spear/Song of the Spear/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
  </Reference>
  <Reference Include="Unity.CollabProxy.Editor">
- <HintPath>C:/Users/degen/source/repos/Song-of-the-Spear/Song of the Spear/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+ <HintPath>C:/Unity/Repos/Song-of-the-Spear/Song of the Spear/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Rider.Editor">
- <HintPath>C:/Users/degen/source/repos/Song-of-the-Spear/Song of the Spear/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+ <HintPath>C:/Unity/Repos/Song-of-the-Spear/Song of the Spear/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.2D.Sprite.Editor">
- <HintPath>C:/Users/degen/source/repos/Song-of-the-Spear/Song of the Spear/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
+ <HintPath>C:/Unity/Repos/Song-of-the-Spear/Song of the Spear/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.2D.Tilemap.Editor">
- <HintPath>C:/Users/degen/source/repos/Song-of-the-Spear/Song of the Spear/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
+ <HintPath>C:/Unity/Repos/Song-of-the-Spear/Song of the Spear/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro">
- <HintPath>C:/Users/degen/source/repos/Song-of-the-Spear/Song of the Spear/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+ <HintPath>C:/Unity/Repos/Song-of-the-Spear/Song of the Spear/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.UI">
- <HintPath>C:/Users/degen/source/repos/Song-of-the-Spear/Song of the Spear/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+ <HintPath>C:/Unity/Repos/Song-of-the-Spear/Song of the Spear/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.AIModule">
  <HintPath>C:/Unity/2019.2.13f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
