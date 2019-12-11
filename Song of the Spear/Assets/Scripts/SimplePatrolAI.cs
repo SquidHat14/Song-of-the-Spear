@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class SimplePatrolAI : MonoBehaviour
 {
-   private bool patrolling;
-
    // movement
    public float moveSpeed;
    public float patrolSchedule;
@@ -35,24 +33,8 @@ public class SimplePatrolAI : MonoBehaviour
       physicsController = GetComponent<Controller2D>();
    }
 
-   // Update is called once per frame
-   void Update()
-    {
-        
-    }
-
-   public void BeginPatrol()
-   {
-      patrolling = true;
-   }
-
-   public void Patrol()
-   {
-      if (!patrolling)
-      {
-         BeginPatrol();
-      }
-      
+   public string Patrol()
+   {      
       if (patrolTimer < patrolSchedule/2)
       {
          currentVelX = -moveSpeed;
@@ -83,5 +65,7 @@ public class SimplePatrolAI : MonoBehaviour
       }
 
       physicsController.Move(velocity * Time.deltaTime);
+
+      return "patrolling";
    }
 }

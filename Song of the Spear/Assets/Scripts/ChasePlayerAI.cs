@@ -5,8 +5,6 @@ using System;
 
 public class ChasePlayerAI : MonoBehaviour
 {
-   private bool chasing;
-
    public Transform playerPosition;
    public Transform aiPosition;
 
@@ -34,18 +32,7 @@ public class ChasePlayerAI : MonoBehaviour
       physicsController = GetComponent<Controller2D>();
    }
 
-   // Update is called once per frame
-   void Update()
-   {
-
-   }
-
-   public void BeginChasing()
-   {
-      chasing = true;
-   }
-
-   public void ChasePlayer()
+   public string ChasePlayer()
    {
       // calculate distance to player
       double xDist = (playerPosition.position.x - aiPosition.position.x);
@@ -89,5 +76,7 @@ public class ChasePlayerAI : MonoBehaviour
       }
 
       physicsController.Move(velocity * Time.deltaTime);
+
+      return "chasingPlayer";
    }
 }

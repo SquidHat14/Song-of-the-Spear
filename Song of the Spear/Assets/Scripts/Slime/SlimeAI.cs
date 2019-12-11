@@ -7,10 +7,11 @@ public class SlimeAI : MonoBehaviour
    DetectPlayerAI detectPlayerScript;
    SimplePatrolAI patrolScript;
    ChasePlayerAI chasePlayerScript;
+   JumpAttackAI jumpAttackScript;
 
-   private bool playerFound;
-   private bool playerToRight;
    private float spriteScale;
+   private string slimeState;
+   private string slimeRange;
 
    // Start is called before the first frame update
    void Start()
@@ -18,26 +19,38 @@ public class SlimeAI : MonoBehaviour
       detectPlayerScript = GetComponent<DetectPlayerAI>();
       patrolScript = GetComponent<SimplePatrolAI>();
       chasePlayerScript = GetComponent<ChasePlayerAI>();
-    }
+      jumpAttackScript = GetComponent<JumpAttackAI>();
+   }
 
-    // Update is called once per frame
-    void Update()
+   // Update is called once per frame
+   void Update()
     {
         
     }
 
    void FixedUpdate()
    {
-      playerFound = detectPlayerScript.FindPlayer();
-      //playerToRight = detectPlayerScript.RightOrLeft();
+      //Debug.Log(slimeState);
+      Debug.Log(slimeRange);
 
-      if (!playerFound)
+      slimeRange = detectPlayerScript.FindRange();
+
+      if (slimeRange == "playerNotFound")
       {
-         patrolScript.Patrol();
+         slimeState = patrolScript.Patrol();
       }
-      else if (playerFound)
+      else if (slimeRange == "aggroRange")
       {
-         chasePlayerScript.ChasePlayer();
+         slimeState = chasePlayerScript.ChasePlayer();
       }
+      else if (slimeRange == "attackRange")
+      {
+         slimeState = jumpAttackScript.JumpAttack();
+      }
+      else if (slimeRange == "playerLost")
+      {
+         slimeState = chasePlayerScript.ChasePlayer();
+      }
+
    }
 }

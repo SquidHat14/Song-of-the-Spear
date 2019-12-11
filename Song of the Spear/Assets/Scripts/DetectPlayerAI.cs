@@ -9,9 +9,11 @@ public class DetectPlayerAI : MonoBehaviour
    public Transform aiPosition;
 
    public float aggroRange;
+   public float attackRange;
+   public float searchTime;
 
-   private bool playerDetected;
-   private bool playerToRight;
+   private bool playerFound;
+   private float playerSightTimer;
 
    // Start is called before the first frame update
    void Start()
@@ -25,48 +27,39 @@ public class DetectPlayerAI : MonoBehaviour
 
    }
 
-   public bool FindPlayer()
+   public string FindRange()
    {
-      // calculate distance to player
+      if (playerSightTimer > searchTime)
+      {
+         playerFound = false;
+         playerSightTimer = 0;
+         return "playerNotFound";
+      }
+
       double xDist = (playerPosition.position.x - aiPosition.position.x);
       double yDist = (playerPosition.position.y - aiPosition.position.y);
       double SqrDistance = xDist * xDist + yDist * yDist;
       double DistanceToTarget = Math.Pow(SqrDistance, 0.5f);
 
-      // range check
-      if (DistanceToTarget < aggroRange)
+      if (DistanceToTarget <= attackRange)
       {
-         playerDetected = true;
+         playerFound = true;
+         return "attackRange";
+      }
+      else if (DistanceToTarget <= aggroRange)
+      {
+         playerFound = true;
+         return "aggroRange";
       }
       else
       {
-         playerDetected = false;
+         if (playerFound == true)
+         {
+            playerSightTimer += Time.deltaTime;
+            return "playerLost";
+         }
+
+         return "playerNotFound";
       }
-
-
-      return playerDetected;
-   }
-
-   public bool RightOrLeft()
-   {
-      double xDist = GetXDistance();
-
-      // player to right or left
-      if (xDist > 0.1)
-      {
-         playerToRight = true;
-      }
-      else if (xDist < 0.1)
-      {
-         playerToRight = false;
-      }
-
-      return playerToRight;
-   }
-
-   private double GetXDistance()
-   {
-      double xDist = (playerPosition.position.x - aiPosition.position.x);
-      return xDist;
    }
 }

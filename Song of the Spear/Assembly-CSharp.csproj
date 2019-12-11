@@ -70,6 +70,7 @@
      <Compile Include="Assets\Scripts\DetectPlayerAI.cs" />
      <Compile Include="Assets\Scripts\Dialogue\ActivateText.cs" />
      <Compile Include="Assets\Scripts\Dialogue\TextBox.cs" />
+     <Compile Include="Assets\Scripts\JumpAttackAI.cs" />
      <Compile Include="Assets\Scripts\Parallax.cs" />
      <Compile Include="Assets\Scripts\Platform_Follow.cs" />
      <Compile Include="Assets\Scripts\SceneTransitionx.cs" />
