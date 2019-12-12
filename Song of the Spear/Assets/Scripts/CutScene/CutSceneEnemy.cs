@@ -2,14 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CutSceneEnemy : MonoBehaviour
+public class CutSceneEnemy : MovementManager
 {
     Animator animator;
     Rigidbody2D Rigidbody;
     SpriteRenderer spriteRenderer;
-    public float Walkspeed = -1f;
-    // Start is called before the first frame update
-    public int TimetoStop = 1;
     private StopCharacter stopCharacter = new StopCharacter();
 
     public AudioSource audioSourceSlime;
@@ -36,7 +33,7 @@ public class CutSceneEnemy : MonoBehaviour
             return;
         }
         audioSourceSlime.Play();
-        Rigidbody.velocity = new Vector2(Walkspeed, Rigidbody.velocity.y);
+        Rigidbody.velocity = new Vector2(Enemyxspeed, Enemyyspeed);
         animator.Play("SlimeBop");
         
     }

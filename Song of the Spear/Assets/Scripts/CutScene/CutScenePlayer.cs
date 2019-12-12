@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CutScenePlayer : MonoBehaviour
+public class CutScenePlayer : MovementManager
 {
     Animator animator;
     Rigidbody2D Rigidbody;
@@ -35,7 +35,7 @@ public class CutScenePlayer : MonoBehaviour
     {
         if(OneAttack)
         {
-            animator.SetTrigger("Attack Button Pressed");
+            animator.SetTrigger("Attack1");
             OneAttack = false;
         }
         if (StopMovement)
@@ -44,9 +44,13 @@ public class CutScenePlayer : MonoBehaviour
             animator.SetFloat("Speed", 0);
             return;
         }
-       
-        Rigidbody.velocity = new Vector2(Walkspeed, Rigidbody.velocity.y);
-        animator.SetFloat("Speed",2);
+        
+        Rigidbody.velocity = new Vector2(Playerxspeed, Playeryspeed);
+
+        if (!NonAnimation)
+        {
+            animator.SetFloat("Speed", 2);
+        }
         
         stopCharacter.OnTriggerEnter2D(Collision2D);
 
