@@ -29,7 +29,7 @@ public class SimplePatrolAI : MonoBehaviour
 
    // Start is called before the first frame update
    void Start()
-    {
+   {
       physicsController = GetComponent<Controller2D>();
    }
 

@@ -55,7 +55,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\EnemyHitDetect.cs" />
      <Compile Include="Assets\Player_Movement.cs" />
+     <Compile Include="Assets\PlayerHealth.cs" />
+     <Compile Include="Assets\PlayerHealthManager.cs" />
+     <Compile Include="Assets\PlayerHitDetect.cs" />
      <Compile Include="Assets\Scripts\Attack_End.cs" />
      <Compile Include="Assets\Scripts\AudioManager.cs" />
      <Compile Include="Assets\Scripts\ChasePlayerAI.cs" />
@@ -70,6 +74,11 @@
      <Compile Include="Assets\Scripts\DetectPlayerAI.cs" />
      <Compile Include="Assets\Scripts\Dialogue\ActivateText.cs" />
      <Compile Include="Assets\Scripts\Dialogue\TextBox.cs" />
+     <Compile Include="Assets\Scripts\FlyChaseLineAI.cs" />
+     <Compile Include="Assets\Scripts\FlyingPatrolAI.cs" />
+     <Compile Include="Assets\Scripts\Irwine\FollowPath.cs" />
+     <Compile Include="Assets\Scripts\Irwine\IrwineAI.cs" />
+     <Compile Include="Assets\Scripts\Irwine\Route.cs" />
      <Compile Include="Assets\Scripts\JumpAttackAI.cs" />
      <Compile Include="Assets\Scripts\Parallax.cs" />
      <Compile Include="Assets\Scripts\Platform_Follow.cs" />

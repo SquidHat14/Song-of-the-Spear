@@ -31,7 +31,7 @@ public class SlimeAI : MonoBehaviour
    void FixedUpdate()
    {
       //Debug.Log(slimeState);
-      Debug.Log(slimeRange);
+      //Debug.Log(slimeRange);
 
       slimeRange = detectPlayerScript.FindRange();
 
