@@ -14,16 +14,16 @@ public class Player : MonoBehaviour
     public float gravity;
     public float jumpVelocity;
     public float minJumpVelocity;
-    Vector3 velocity;
-    float velocityXSmoothing;
+    public Vector3 velocity;
+    public float velocityXSmoothing;
 
-    bool jump;
+    public bool jump;
 
     //Vector2 input;
 
-    Controller2D controller;
+   public Controller2D controller;
 
-    void Start()
+   void Start()
     {
         controller = GetComponent<Controller2D>();
 
@@ -63,5 +63,21 @@ public class Player : MonoBehaviour
     private void Update()
     {
         jump = Input.GetKey("w") || Input.GetKey(KeyCode.Space);
+    }
+
+    public void SavePlayer()
+    {
+        //GlobalControl.Instance.jumpHeight = jumpHeight;
+        //GlobalControl.Instance.timeToJumpApex = timeToJumpApex;
+        //GlobalControl.Instance.accelerationTimeAirborne = accelerationTimeAirborne;
+        //GlobalControl.Instance.accelerationTimeGrounded = accelerationTimeGrounded;
+        //GlobalControl.Instance.moveSpeed = moveSpeed;
+        //GlobalControl.Instance.gravity = gravity;
+        //GlobalControl.Instance.jumpVelocity = jumpVelocity;
+        //GlobalControl.Instance.minJumpVelocity = minJumpVelocity;
+        //GlobalControl.Instance.velocity = velocity;
+        //GlobalControl.Instance.velocityXSmoothing = velocityXSmoothing;
+
+        SaveSystem.SavePlayer(this);
     }
 }

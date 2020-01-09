@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CutSceneEnemy : MovementManager
+public class CutSceneEnemy : MovementManagerEnemy
 {
     Animator animator;
     Rigidbody2D Rigidbody;
@@ -13,6 +13,9 @@ public class CutSceneEnemy : MovementManager
 
     public Collider2D Collision2D;
 
+    public bool StartAI;
+
+
     public bool StartMovement;
 
     void Start()
@@ -21,11 +24,18 @@ public class CutSceneEnemy : MovementManager
         Rigidbody = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+
+    }
+
+    void Update()
+    {
+        attackTimer += Time.deltaTime;
     }
 
     // Update is called once per frame
-   void FixedUpdate()
+    void FixedUpdate()
     {
+        
         stopCharacter.OnTriggerEnter2D(Collision2D);
         if (!StartMovement)
         {

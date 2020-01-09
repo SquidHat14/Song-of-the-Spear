@@ -24,8 +24,7 @@ public class CameraShake : MonoBehaviour
         if (collider.name == "Player")
         {
             Debug.Log("@@@@@@@@@@@@@@@@@@@@@@");
-            new WaitForSeconds(ShakeTime);
-            Shake(0.01f, 5.5f);
+            Shake(0.01f, ShakeTime);
         }
     
     }
