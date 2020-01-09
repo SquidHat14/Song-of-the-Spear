@@ -11,13 +11,18 @@ public class Player : MonoBehaviour
     public float accelerationTimeGrounded = .1f;
     public float moveSpeed = 4;
 
+    [Range (0,15)]
+    public int coyoteTimeFrameLimit = 3;
+    private int coyoteTimeCurrentFrame = 0;
+
     public float gravity;
     public float jumpVelocity;
     public float minJumpVelocity;
     Vector3 velocity;
     float velocityXSmoothing;
 
-    bool jump;
+    bool holdingJump;
+    bool alreadyJumped = true;
 
     //Vector2 input;
 
@@ -34,21 +39,26 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (controller.collisions.above || controller.collisions.below)
+        if (controller.collisions.above)
         {
             velocity.y = 0;
+        }
+        if (controller.collisions.below)
+        {
+            velocity.y = 0;
+            coyoteTimeCurrentFrame = 0;
+            alreadyJumped = false;
         }
 
         Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
-        if (jump && controller.collisions.below)
+        if (holdingJump && (controller.collisions.below || (coyoteTimeCurrentFrame < coyoteTimeFrameLimit && alreadyJumped == false)))
         {
             velocity.y = jumpVelocity;
-            Debug.Log("jump pressed");
-            jump = false;
+            alreadyJumped = true;
         }
 
-        if (!jump && !controller.collisions.below && velocity.y > minJumpVelocity)
+        if (!holdingJump && !controller.collisions.below && velocity.y > minJumpVelocity)
         {
             velocity.y = minJumpVelocity;
         }
@@ -58,10 +68,13 @@ public class Player : MonoBehaviour
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
         velocity.y += gravity * Time.deltaTime;
 
+        Debug.Log(coyoteTimeCurrentFrame);
+
+        coyoteTimeCurrentFrame++;
         controller.Move(velocity * Time.deltaTime);
     }
     private void Update()
     {
-        jump = Input.GetKey("w") || Input.GetKey(KeyCode.Space);
+        holdingJump = Input.GetKey("w") || Input.GetKey(KeyCode.Space);
     }
 }

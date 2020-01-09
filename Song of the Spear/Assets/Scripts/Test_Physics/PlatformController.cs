@@ -39,6 +39,11 @@ public class PlatformController : RaycastController
 
         UpdateRaycastOrigins();
 
+        
+    }
+
+    private void FixedUpdate()
+    {
         Vector3 velocity = CalculatePlatformMovement();
 
         CalculatePassengerMovement(velocity);
