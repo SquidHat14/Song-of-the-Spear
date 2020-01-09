@@ -14,6 +14,8 @@ public class Player : MonoBehaviour
     [Range (0,15)]
     public int coyoteTimeFrameLimit = 3;
     private int coyoteTimeCurrentFrame = 0;
+    private int IdleAnimationTimer = 0;
+    public int IdleAnimationFrame;
 
     public float gravity;
     public float jumpVelocity;
@@ -22,15 +24,18 @@ public class Player : MonoBehaviour
     float velocityXSmoothing;
 
     bool holdingJump;
+    float inputX;
     bool alreadyJumped = true;
 
     //Vector2 input;
 
     Controller2D controller;
+    Animator animate;
 
     void Start()
     {
         controller = GetComponent<Controller2D>();
+        animate = GetComponent<Animator>();
 
         //gravity = -(2 * jumpHeight) / Mathf.Pow(timeToJumpApex, 2);
         //jumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
@@ -39,18 +44,34 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (velocity.x == 0 && controller.collisions.below)
+        {
+            IdleAnimationTimer++;
+        }
+        else
+        {
+            IdleAnimationTimer = 0;
+        }
+
         if (controller.collisions.above)
         {
             velocity.y = 0;
         }
         if (controller.collisions.below)
         {
-            velocity.y = 0;
+            if (controller.collisions.slidingDownMaxSlope)
+            {
+                velocity.y += controller.collisions.slopeNormal.y * -gravity * Time.deltaTime;
+            }
+            else
+            {
+                velocity.y = 0;
+            }
             coyoteTimeCurrentFrame = 0;
             alreadyJumped = false;
         }
 
-        Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+
 
         if (holdingJump && (controller.collisions.below || (coyoteTimeCurrentFrame < coyoteTimeFrameLimit && alreadyJumped == false)))
         {
@@ -63,7 +84,7 @@ public class Player : MonoBehaviour
             velocity.y = minJumpVelocity;
         }
 
-        float targetVelocityX = input.x * moveSpeed;
+        float targetVelocityX = inputX * moveSpeed;
 
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
         velocity.y += gravity * Time.deltaTime;
@@ -72,9 +93,16 @@ public class Player : MonoBehaviour
 
         coyoteTimeCurrentFrame++;
         controller.Move(velocity * Time.deltaTime);
+
+        if (IdleAnimationTimer >= IdleAnimationFrame && animate.GetCurrentAnimatorStateInfo(0).IsName("idle_animation"))  //Not sure about the layer passed in.
+        {
+            Debug.Log("Idle Animation Played");
+            //Add trigger to play special idle animation
+        }
     }
     private void Update()
     {
+        inputX = Input.GetAxisRaw("Horizontal");
         holdingJump = Input.GetKey("w") || Input.GetKey(KeyCode.Space);
     }
 }
