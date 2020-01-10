@@ -4,6 +4,7 @@ using System.Collections;
 [RequireComponent(typeof(Controller2D))]
 public class Player : MonoBehaviour
 {
+   private SpriteRenderer playerSprite;
 
     public float jumpHeight = 4;
     public float timeToJumpApex = .4f;
@@ -23,8 +24,12 @@ public class Player : MonoBehaviour
 
     Controller2D controller;
 
+   // private keeper variables
+   private float hitFlashTimer;
+
     void Start()
     {
+        playerSprite = GetComponent<SpriteRenderer>();
         controller = GetComponent<Controller2D>();
 
         //gravity = -(2 * jumpHeight) / Mathf.Pow(timeToJumpApex, 2);
