@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class TextBox : MonoBehaviour
 {
     public GameObject textBox;
@@ -17,7 +18,7 @@ public class TextBox : MonoBehaviour
     public int currentline;
     public int endline;
 
-    public Player_Movement Player;
+    public Player Player;
 
     private bool IsTyping = false;
     private bool cancelTyping = false;
@@ -37,7 +38,7 @@ public class TextBox : MonoBehaviour
     void Start()
     {
         
-        Player = FindObjectOfType<Player_Movement>();
+        Player = FindObjectOfType<Player>();
 
         if (BigText != null)
         {

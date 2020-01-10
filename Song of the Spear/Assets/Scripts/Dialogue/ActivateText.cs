@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Controller2D))]
 public class ActivateText : MonoBehaviour
 {
 
@@ -16,6 +17,8 @@ public class ActivateText : MonoBehaviour
     private bool WaitforPress;
 
     public bool IsCollison;
+
+    public Controller2D Controller2D;
 
     
     public bool DestroyWhenFinished;

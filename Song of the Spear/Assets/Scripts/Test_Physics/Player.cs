@@ -4,7 +4,6 @@ using System.Collections;
 [RequireComponent(typeof(Controller2D))]
 public class Player : MonoBehaviour
 {
-   private SpriteRenderer playerSprite;
 
     public float jumpHeight = 4;
     public float timeToJumpApex = .4f;
@@ -12,25 +11,31 @@ public class Player : MonoBehaviour
     public float accelerationTimeGrounded = .1f;
     public float moveSpeed = 4;
 
+    [Range (0,15)]
+    public int coyoteTimeFrameLimit = 3;
+    private int coyoteTimeCurrentFrame = 0;
+    private int IdleAnimationTimer = 0;
+    public int IdleAnimationFrame;
+
     public float gravity;
     public float jumpVelocity;
     public float minJumpVelocity;
-    Vector3 velocity;
-    float velocityXSmoothing;
+    public Vector3 velocity;
+    public float velocityXSmoothing;
 
-    bool jump;
+    bool holdingJump;
+    float inputX;
+    bool alreadyJumped = true;
 
     //Vector2 input;
 
     Controller2D controller;
+    Animator animate;
 
-   // private keeper variables
-   private float hitFlashTimer;
-
-    void Start()
+   void Start()
     {
-        playerSprite = GetComponent<SpriteRenderer>();
         controller = GetComponent<Controller2D>();
+        animate = GetComponent<Animator>();
 
         //gravity = -(2 * jumpHeight) / Mathf.Pow(timeToJumpApex, 2);
         //jumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
@@ -39,34 +44,81 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (controller.collisions.above || controller.collisions.below)
+        if (velocity.x == 0 && controller.collisions.below)
+        {
+            IdleAnimationTimer++;
+        }
+        else
+        {
+            IdleAnimationTimer = 0;
+        }
+
+        if (controller.collisions.above)
         {
             velocity.y = 0;
         }
-
-        Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-
-        if (jump && controller.collisions.below)
+        if (controller.collisions.below)
         {
-            velocity.y = jumpVelocity;
-            Debug.Log("jump pressed");
-            jump = false;
+            if (controller.collisions.slidingDownMaxSlope)
+            {
+                velocity.y += controller.collisions.slopeNormal.y * -gravity * Time.deltaTime;
+            }
+            else
+            {
+                velocity.y = 0;
+            }
+            coyoteTimeCurrentFrame = 0;
+            alreadyJumped = false;
         }
 
-        if (!jump && !controller.collisions.below && velocity.y > minJumpVelocity)
+
+
+        if (holdingJump && (controller.collisions.below || (coyoteTimeCurrentFrame < coyoteTimeFrameLimit && alreadyJumped == false)))
+        {
+            velocity.y = jumpVelocity;
+            alreadyJumped = true;
+        }
+
+        if (!holdingJump && !controller.collisions.below && velocity.y > minJumpVelocity)
         {
             velocity.y = minJumpVelocity;
         }
 
-        float targetVelocityX = input.x * moveSpeed;
+        float targetVelocityX = inputX * moveSpeed;
 
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
         velocity.y += gravity * Time.deltaTime;
 
+        Debug.Log(coyoteTimeCurrentFrame);
+
+        coyoteTimeCurrentFrame++;
         controller.Move(velocity * Time.deltaTime);
+
+        if (IdleAnimationTimer >= IdleAnimationFrame && animate.GetCurrentAnimatorStateInfo(0).IsName("idle_animation"))  //Not sure about the layer passed in.
+        {
+            Debug.Log("Idle Animation Played");
+            //Add trigger to play special idle animation
+        }
     }
     private void Update()
     {
-        jump = Input.GetKey("w") || Input.GetKey(KeyCode.Space);
+        inputX = Input.GetAxisRaw("Horizontal");
+        holdingJump = Input.GetKey("w") || Input.GetKey(KeyCode.Space);
+    }
+
+    public void SavePlayer()
+    {
+        //GlobalControl.Instance.jumpHeight = jumpHeight;
+        //GlobalControl.Instance.timeToJumpApex = timeToJumpApex;
+        //GlobalControl.Instance.accelerationTimeAirborne = accelerationTimeAirborne;
+        //GlobalControl.Instance.accelerationTimeGrounded = accelerationTimeGrounded;
+        //GlobalControl.Instance.moveSpeed = moveSpeed;
+        //GlobalControl.Instance.gravity = gravity;
+        //GlobalControl.Instance.jumpVelocity = jumpVelocity;
+        //GlobalControl.Instance.minJumpVelocity = minJumpVelocity;
+        //GlobalControl.Instance.velocity = velocity;
+        //GlobalControl.Instance.velocityXSmoothing = velocityXSmoothing;
+
+        SaveSystem.SavePlayer(this);
     }
 }
