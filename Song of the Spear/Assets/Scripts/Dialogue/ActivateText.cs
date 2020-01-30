@@ -7,6 +7,7 @@ public class ActivateText : MonoBehaviour
 {
 
     public TextAsset InputText;
+    public TextAsset InputTextBlank;
 
     public int startline;
     public int endline;
@@ -72,7 +73,8 @@ public class ActivateText : MonoBehaviour
     {
         if(collision.name == "Player")
         {
-            WaitforPress = false;
+            TheTextBox.TextBoxDisable();
+            TheTextBox.ReloadScript(InputTextBlank);
         }
     }
 }
