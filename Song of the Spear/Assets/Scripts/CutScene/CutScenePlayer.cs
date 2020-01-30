@@ -97,7 +97,7 @@ public class CutScenePlayer : MovementManagerPlayer
         if (StartInputMotion)
         {
             
-            jump = Input.GetKey(KeyCode.Space);
+            bool jump = Input.GetKey(KeyCode.Space);
 
             if (controller.collisions.above || controller.collisions.below)
             {

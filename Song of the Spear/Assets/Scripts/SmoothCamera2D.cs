@@ -12,6 +12,23 @@ public class SmoothCamera2D : MonoBehaviour
     [Range(0f,3f)]
     public float yOffset;
 
+    public float minX;
+    public float maxX;
+    public float minY;
+    public float maxY;
+    public float minZ;
+    public float maxZ;
+
+
+
+    void Start()
+    {
+        GameObject[] gameObjects;
+        gameObjects = GameObject.FindGameObjectsWithTag("GameManager");
+        GameManager gamemanager = gameObjects[0].GetComponent<GameManager>();
+
+        this.transform.position = gamemanager.spawnPoint;
+    }
 
     // Update is called once per frame
     void FixedUpdate()
@@ -21,7 +38,15 @@ public class SmoothCamera2D : MonoBehaviour
             Vector3 newPosition = target.position;
             newPosition.y += yOffset;
             newPosition.z = -10;
-            transform.position = Vector3.Slerp(transform.position, newPosition, speed * Time.deltaTime);
+
+            Vector3 temp;
+            temp = Vector3.Slerp(transform.position, newPosition, speed * Time.deltaTime);
+
+            transform.position = new Vector3(
+            Mathf.Clamp(temp.x, minX, maxX),
+            Mathf.Clamp(temp.y, minY, maxY),
+            Mathf.Clamp(temp.z, minZ, maxZ));
+           
 
         }
     }

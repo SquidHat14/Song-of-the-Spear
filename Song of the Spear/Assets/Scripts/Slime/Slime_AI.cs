@@ -33,7 +33,7 @@ public class Slime_AI : MonoBehaviour
    public float approachDistance;
 
    private bool playerInRange;
-   private float attackTimer;
+   public float attackTimer;
    // 1=R; 0=ON; -1=L PFB
    private short playertoRight;
 
@@ -76,63 +76,67 @@ public class Slime_AI : MonoBehaviour
    private void FixedUpdate()
    {
       currentVelocityX = 0;
-      // calculate distance to target player
-      double xDist = (rb.position.x - playerPosition.position.x);
-      double yDist = (rb.position.y - playerPosition.position.y);
-      double SqrDistance = xDist * xDist + yDist * yDist;
-      double DistanceToTarget = Math.Pow(SqrDistance, 0.5f);
 
-      playertoRight = 0;
-      if (xDist > 0.1)
-      {
-         playertoRight = -1;
-      }
-      else if (xDist < 0.1)
-      {
-         playertoRight = 1;
-      }
-      else
-      {
-         playertoRight = 0;
-      }
+        if (playerPosition)
+        {
+            // calculate distance to target player
+            double xDist = (rb.position.x - playerPosition.position.x);
+            double yDist = (rb.position.y - playerPosition.position.y);
+            double SqrDistance = xDist * xDist + yDist * yDist;
+            double DistanceToTarget = Math.Pow(SqrDistance, 0.5f);
 
-      // align sprite left / right
-      if (playertoRight == 1)
-      {
-         transform.localScale = new Vector2(-spriteScale, transform.localScale.y);
-      }
-      if (playertoRight == -1)
-      {
-         transform.localScale = new Vector2(spriteScale, transform.localScale.y);
-      }
+            playertoRight = 0;
+            if (xDist > 0.1)
+            {
+                playertoRight = -1;
+            }
+            else if (xDist < 0.1)
+            {
+                playertoRight = 1;
+            }
+            else
+            {
+                playertoRight = 0;
+            }
 
-      // range check
-      if (DistanceToTarget < aggroRange)
-      {
-         playerInRange = true;
-      }
+            // align sprite left / right
+            if (playertoRight == 1)
+            {
+                transform.localScale = new Vector2(-spriteScale, transform.localScale.y);
+            }
+            if (playertoRight == -1)
+            {
+                transform.localScale = new Vector2(spriteScale, transform.localScale.y);
+            }
 
-      // ####################### WIP - pre interaction AI needed ############### //
-      // approach player?
-      if (DistanceToTarget > approachDistance && playerInRange)
-      {
-         currentVelocityX = moveSpeed;
-      }
-      // attack or approach
-      if (DistanceToTarget < attackRange && attackTimer >= timeBetweenAttacks && playerInRange)
-      {
-         velocity.y = jumpVelocity;
-         attackTimer = 0;
-         currentVelocityX = attackSpeed;
-      }
+            // range check
+            if (DistanceToTarget < aggroRange)
+            {
+                playerInRange = true;
+            }
 
-      float approach = 0;
-      if (playerInRange && DistanceToTarget > approachDistance) { approach = 1; }
+            // ####################### WIP - pre interaction AI needed ############### //
+            // approach player?
+            if (DistanceToTarget > approachDistance && playerInRange)
+            {
+                currentVelocityX = moveSpeed;
+            }
+            // attack or approach
+            if (DistanceToTarget < attackRange && attackTimer >= timeBetweenAttacks && playerInRange)
+            {
+                velocity.y = jumpVelocity;
+                attackTimer = 0;
+                currentVelocityX = attackSpeed;
+            }
 
-      float targetVelocityX = currentVelocityX * playertoRight * approach;
-      velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
-      velocity.y += gravity * Time.deltaTime;
-      controller.Move(velocity * Time.deltaTime);
+            float approach = 0;
+            if (playerInRange && DistanceToTarget > approachDistance) { approach = 1; }
+
+            float targetVelocityX = currentVelocityX * playertoRight * approach;
+            velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
+            velocity.y += gravity * Time.deltaTime;
+            controller.Move(velocity * Time.deltaTime);
+        }
    }
 
 }

@@ -23,15 +23,20 @@ public class StopCharacter : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.name == "Player")
+        if (collision)
         {
-            player.StopMovement = true;
-            enemy.StartMovement = true;
-            CShake = true;
-            
+            if (collision.name == "Player")
+            {
+                if (player)
+                {
+                    player.StopMovement = true;
+                }
+                if (enemy)
+                {
+                    enemy.StartMovement = true;
+                }
+                CShake = true;
+            }
         }
     }
-
-    
-    
 }

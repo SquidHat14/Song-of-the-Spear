@@ -20,7 +20,7 @@ public class PlayerData
     public PlayerData(Player player)
     {
         jumpHeight = player.jumpHeight;
-        timeToJumpApex = player.timeToJumpApex;
+        //timeToJumpApex = player.timeToJumpApex;
         accelerationTimeAirborne = player.accelerationTimeAirborne;
         accelerationTimeGrounded = player.accelerationTimeGrounded;
         moveSpeed = player.moveSpeed;
