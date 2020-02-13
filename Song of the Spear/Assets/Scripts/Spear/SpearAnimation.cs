@@ -1,0 +1,32 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class SpearAnimation : MonoBehaviour
+{
+    
+    public List<bool> SwitchAnimation()
+    {
+        
+        if (Input.GetKey(KeyCode.Alpha1))
+        {
+            List<bool> SpearOrder = new List<bool>();
+            SpearOrder.Add(true);
+            SpearOrder.Add(false);
+            return SpearOrder;
+
+        }
+        if (Input.GetKey(KeyCode.Alpha2))
+        {
+            List<bool> SpearOrder = new List<bool>();
+            SpearOrder.Add(false);
+            SpearOrder.Add(true);
+            return SpearOrder;
+        }
+        List<bool> DefaultSpearOrder = new List<bool>();
+        DefaultSpearOrder.Add(false);
+        DefaultSpearOrder.Add(false);
+        return DefaultSpearOrder;
+    }
+
+}

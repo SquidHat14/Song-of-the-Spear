@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using System.Collections.Generic;
 
 [System.Serializable]
 [RequireComponent(typeof(Controller2D))]
@@ -27,6 +28,11 @@ public class Player : MonoBehaviour
     [HideInInspector]
     public Vector3 velocity;
 
+    [HideInInspector]
+    public bool SecondSpearOn;
+    [HideInInspector]
+    public bool FirstSpearOff;
+
 
     public float velocityXSmoothing;
 
@@ -37,6 +43,7 @@ public class Player : MonoBehaviour
 
     [HideInInspector]
     public Controller2D controller;
+    public SpearAnimation spearAnimation;
     Animator animate;
     float Xscale;
 
@@ -124,20 +131,35 @@ public class Player : MonoBehaviour
         }
 
         animate.SetInteger("inputX", Math.Abs((int)inputX));
+        animate.SetBool("InputIsRed", SecondSpearOn);
+        animate.SetBool("InputIsGreen", FirstSpearOff);
+        
+
 
         if (inputX < 0)
         {
             this.gameObject.transform.localScale = new Vector2(-Xscale, transform.localScale.y);
+            SecondSpearOn = spearAnimation.SwitchAnimation()[0];
+            FirstSpearOff = spearAnimation.SwitchAnimation()[1];
         }
         else if(inputX > 0)
         {
             this.gameObject.transform.localScale = new Vector2(Xscale, transform.localScale.y);
+            SecondSpearOn = spearAnimation.SwitchAnimation()[0];
+            FirstSpearOff = spearAnimation.SwitchAnimation()[1];
         }
     }
     private void Update()
     {
         inputX = Input.GetAxisRaw("Horizontal");
         holdingJump = Input.GetKey("w") || Input.GetKey(KeyCode.Space);
+
+        if(inputX == 0)
+        {
+            SecondSpearOn = spearAnimation.SwitchAnimation()[0];
+            FirstSpearOff = spearAnimation.SwitchAnimation()[1];
+        }
+
     }
 
     public void SavePlayer()
