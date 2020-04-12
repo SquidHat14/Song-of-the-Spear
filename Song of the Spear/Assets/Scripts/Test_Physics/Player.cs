@@ -29,10 +29,8 @@ public class Player : MonoBehaviour
     public Vector3 velocity;
 
     [HideInInspector]
-    public bool SecondSpearOn;
-    [HideInInspector]
-    public bool FirstSpearOff;
-
+    public int SpearSwitch;
+    
 
     public float velocityXSmoothing;
 
@@ -130,23 +128,23 @@ public class Player : MonoBehaviour
             //Add trigger to play special idle animation
         }
 
-        animate.SetInteger("inputX", Math.Abs((int)inputX));
-        animate.SetBool("InputIsRed", SecondSpearOn);
-        animate.SetBool("InputIsGreen", FirstSpearOff);
+        //animate.SetInteger("inputX", Math.Abs((int)inputX));
+        //animate.SetInteger("SpearSwitch", SpearSwitch);
+        
         
 
 
         if (inputX < 0)
         {
             this.gameObject.transform.localScale = new Vector2(-Xscale, transform.localScale.y);
-            SecondSpearOn = spearAnimation.SwitchAnimation()[0];
-            FirstSpearOff = spearAnimation.SwitchAnimation()[1];
+            //SpearSwitch = spearAnimation.SwitchAnimation();
+
         }
         else if(inputX > 0)
         {
             this.gameObject.transform.localScale = new Vector2(Xscale, transform.localScale.y);
-            SecondSpearOn = spearAnimation.SwitchAnimation()[0];
-            FirstSpearOff = spearAnimation.SwitchAnimation()[1];
+            //SpearSwitch = spearAnimation.SwitchAnimation();
+            
         }
     }
     private void Update()
@@ -154,11 +152,10 @@ public class Player : MonoBehaviour
         inputX = Input.GetAxisRaw("Horizontal");
         holdingJump = Input.GetKey("w") || Input.GetKey(KeyCode.Space);
 
-        if(inputX == 0)
-        {
-            SecondSpearOn = spearAnimation.SwitchAnimation()[0];
-            FirstSpearOff = spearAnimation.SwitchAnimation()[1];
-        }
+        //if(inputX == 0)
+        //{
+        //    SpearSwitch = spearAnimation.SwitchAnimation();
+        //}
 
     }
 
